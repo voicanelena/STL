@@ -34,20 +34,17 @@ int main()
         inFile >> speciality;
         vec2.push_back(make_pair(name, speciality));
     }
-
-    for (auto index1 = begin(vec1); index1 != end(vec1); index1++) {
-        bool accepted = false;
-        for (auto index2 = begin(vec2); index2 != end(vec2); index2++) {
-            if ((*index1).second == (*index2).second)
-                accepted = true;
-
-
+    
+    for (auto problem= begin(vec1);  problem!= end(vec1); problem++) {
+        auto doctor = find_if(vec2.begin(), vec2.end(), [=](pair<string, string>n) {return problem->second == n.second; });
+        
+        if (doctor != vec2.end()){
+            cout << doctor->first << " " << problem->first << '\n';
+            vec2.erase(doctor);
         }
-        if (accepted == true)
-            cout << (*index1).first << " " << "Acceptat" << endl;
-        else
-            cout << (*index1).first << " " << "Respins" << endl;
+   
     }
+
 
     return 0;
 }
